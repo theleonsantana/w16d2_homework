@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Lorem = require('../models/lorem.js');
+const Lorems = require('../models/lorem.js');
 
 //READ
 router.get('/', (req, res) => {
