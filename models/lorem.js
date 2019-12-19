@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const loremSchema = new mongoose.Schema(
     {
-        text: { type: String, required: true }
+        title: { type: String, required: true },
+        length: { type: Number, min: 1, max: 500 }
     }
 )
 
