@@ -1,8 +1,9 @@
 class App extends React.Component {
-    state = {
+        state = {
         lorems: [],
-        text: ''
+        text: ''        
     }
+    
 
     componentDidMount() {
         fetch('/lorem')
@@ -37,13 +38,31 @@ class App extends React.Component {
         }).catch(error => console.log(error));
     }
 
+    randomLorem = () => {
+        let result = 'Lorem Simpson';
+        let length = ipsums.length;
+        for(let i=1;i<=5;i++) {
+            console.log('in for loop')
+            if (i%3===0) {
+                result+=' '+ipsums[Math.floor((Math.random()*(length/3)+(2*length)/3))];
+            } else if (i%2===0) {
+                result+=' '+ipsums[Math.floor((Math.random()*(length/3)+(length)/3))];
+            } else {
+                result += ' ' + ipsums[Math.floor(Math.random()*length/3)];
+            }
+        }
+
+        return result;
+    }
+
     render() {
         return(
             <div>
                 <h1>Lorem Simpson</h1>
-                <ul>
-          {ipsums.map(item => <li>{item}</li>)}
-        </ul>
+                <div> {this.randomLorem()}</div>
+                {/* <ul>
+                {ipsums.map(item => <li>{item}</li>)}
+                </ul> */}
             </div>
         )
     }
