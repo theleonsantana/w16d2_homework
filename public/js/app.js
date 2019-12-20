@@ -24,7 +24,7 @@ class App extends React.Component {
     handleSubmit = (event) =>{
         event.preventDefault()
         fetch('/lorem', {
-            body: JSON.stringify({title: this.state.title, data: this.state.data}),
+            body: JSON.stringify({title: this.state.title, data: this.state.activeLorem}),
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -72,7 +72,6 @@ class App extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <label label='title'>Title</label>
                     <input type='text' value={this.state.description} onChange={this.handleChange} id='title' />
-                    <input type='hidden' id='data' name='data' value={this.state.activeLorem} />
                     <input type='submit' value='Save Lorem' />
                 </form>
                 {/* <form>
