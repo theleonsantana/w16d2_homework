@@ -41,6 +41,9 @@ class App extends React.Component {
         return(
             <div>
                 <h1>Lorem Simpson</h1>
+                <ul>
+          {ipsums.map(item => <li>{item}</li>)}
+        </ul>
             </div>
         )
     }
