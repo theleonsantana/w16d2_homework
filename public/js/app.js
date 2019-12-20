@@ -1,7 +1,9 @@
 class App extends React.Component {
         state = {
+        activeLorem: '',
         lorems: [],
-        text: ''        
+        title: '',
+        data: ''        
     }
     
 
@@ -22,7 +24,7 @@ class App extends React.Component {
     handleSubmit = (event) =>{
         event.preventDefault()
         fetch('/lorem', {
-            body: JSON.stringify({text: this.state.text}),
+            body: JSON.stringify({title: this.state.title, data: this.state.data}),
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -32,16 +34,18 @@ class App extends React.Component {
             return createdLorem.json();
         }).then(jsonedLorem => {
             this.setState({
-                text: '',
+                title: '',
+                data: '',
                 lorems: [jsonedLorem, ...this.state.lorems]
             })
         }).catch(error => console.log(error));
     }
 
-    randomLorem = () => {
+    randomLorem = (event) => {
+        event.preventDefault()
         let result = 'Lorem Simpson';
         let length = ipsums.length;
-        for(let i=1;i<=5;i++) {
+        for(let i=1;i<=20;i++) {
             console.log('in for loop')
             if (i%3===0) {
                 result+=' '+ipsums[Math.floor((Math.random()*(length/3)+(2*length)/3))];
@@ -52,17 +56,28 @@ class App extends React.Component {
             }
         }
 
-        return result;
+        this.setState({
+            activeLorem:result
+        }) 
     }
 
     render() {
         return(
             <div>
                 <h1>Lorem Simpson</h1>
-                <div> {this.randomLorem()}</div>
-                {/* <ul>
-                {ipsums.map(item => <li>{item}</li>)}
-                </ul> */}
+                <form onSubmit={this.randomLorem}>
+                    <input type='submit' value="D'oH" />
+                </form>
+                <div> {this.state.activeLorem}</div>
+                <form onSubmit={this.handleSubmit}>
+                    <label label='title'>Title</label>
+                    <input type='text' value={this.state.description} onChange={this.handleChange} id='title' />
+                    <input type='hidden' id='data' name='data' value={this.state.activeLorem} />
+                    <input type='submit' value='Save Lorem' />
+                </form>
+                {/* <form>
+
+                </form> */}
             </div>
         )
     }
