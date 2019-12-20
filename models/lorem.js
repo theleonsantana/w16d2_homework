@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const loremSchema = new mongoose.Schema(
     {
         title: { type: String, required: true },
-        length: { type: Number, min: 1, max: 500 }
+        data: String
     }
 )
 
