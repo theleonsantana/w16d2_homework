@@ -94,7 +94,7 @@ class App extends React.Component {
 						/>
 						<input type="submit" value="Save Lorem" />
 					</form>
-					<p>{this.state.activeLorem}</p>
+					<p className="output-text">{this.state.activeLorem}</p>
 				</div>
 			</div>
 		);
