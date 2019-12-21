@@ -1,0 +1,45 @@
+/* Variables */
+:root {
+	--simpson-yellow: #ffd51f;
+	--simpson-blue: #3ca4fd;
+}
+
+/* Fonts */
+@font-face {
+	font-family: 'SimpsonFont';
+	src: url('../fonts/Simpsonfont.ttf'); /*URL to font*/
+}
+
+/* Tag Styles */
+body {
+	background-image: url(../images/seriesDetail_s31.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #464646;
+}
+
+/* Helper Styles */
+.drop-shadow {
+	text-shadow: -4px 4px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
+		-1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* Class Styles */
+.container {
+	max-width: 80%;
+	margin: 0 auto;
+}
+
+.app-title {
+	font-family: 'SimpsonFont';
+	color: var(--simpson-yellow);
+	/* -webkit-text-stroke: 1px black; */
+	font-size: 4em;
+	text-transform: uppercase;
+}
+
+.app-container {
+	background-color: rgba(60, 164, 253, 76%);
+}
