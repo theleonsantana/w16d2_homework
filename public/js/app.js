@@ -3,7 +3,7 @@ class App extends React.Component {
         activeLorem: '',
         lorems: [],
         title: '',
-        length: ''        
+        size: 'Short'        
     }
     
 
@@ -45,6 +45,23 @@ class App extends React.Component {
         event.preventDefault()
         let result = 'Lorem Simpson';
         let length = ipsums.length;
+        // let punctuation = ['.', '!', ',', '?', ' ', ';']
+        // let randomIpsum = ipsums[Math.floor(Math.random() * ipsums.length)]
+        // let randomPunctuation = punctuation[Math.floor((Math.random() * punctuation.length))];
+        // if(this.state.size === 'Short'){
+        //     for(let i = 0; i > (Math.floor((Math.random() * 8) + 1)); i++){
+        //         result += '' + randomIpsum;
+        //         console.log(result);
+        //     }
+        // }else if(this.state.size === 'Medium'){
+        //     for(let i = 0; i = (Math.floor((Math.random() * 20) + 9)); i++){
+        //         result += '' + ipsums[Math.floor(Math.random() * ipsums.length)] + randomPunctuation;
+        //     }
+        // }else {
+        //     for(let i = 0; i = (Math.floor((Math.random() * 40) + 15)); i++){
+        //         result += '' + ipsums[Math.floor(Math.random() * ipsums.length)] + randomPunctuation;
+        //     }
+        // }
         for(let i=1;i<=20;i++) {
             console.log('in for loop')
             if (i%3===0) {
@@ -66,8 +83,8 @@ class App extends React.Component {
             <div>
                 <h1>Lorem Simpson</h1>
                 <form onSubmit={this.randomLorem}>
-                    <label htmlFor='length'>Length of Lorem</label>
-                    <select value={this.state.length} onChange={this.handleChange} id='length'>
+                    <label htmlFor='size'>Length of Lorem:</label>
+                    <select value={this.state.size} onChange={this.handleChange} id='size'>
                         <option value='Short'>Short</option>
                         <option value='Medium'>Medium</option>
                         <option value='Long'>Long</option>
