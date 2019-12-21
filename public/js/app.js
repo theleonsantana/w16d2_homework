@@ -3,7 +3,7 @@ class App extends React.Component {
         activeLorem: '',
         lorems: [],
         title: '',
-        size: 'Short'        
+        size: '10'        
     }
     
 
@@ -43,8 +43,9 @@ class App extends React.Component {
 
     randomLorem = (event) => {
         event.preventDefault()
+        console.log(this.state.size)
         let result = 'Lorem Simpson';
-        let length = ipsums.length;
+        let thirdLength = Math.floor(ipsums.length/3);
         // let punctuation = ['.', '!', ',', '?', ' ', ';']
         // let randomIpsum = ipsums[Math.floor(Math.random() * ipsums.length)]
         // let randomPunctuation = punctuation[Math.floor((Math.random() * punctuation.length))];
@@ -62,17 +63,16 @@ class App extends React.Component {
         //         result += '' + ipsums[Math.floor(Math.random() * ipsums.length)] + randomPunctuation;
         //     }
         // }
-        for(let i=1;i<=20;i++) {
-            console.log('in for loop')
-            if (i%3===0) {
-                result+=' '+ipsums[Math.floor((Math.random()*(length/3)+(2*length)/3))];
-            } else if (i%2===0) {
-                result+=' '+ipsums[Math.floor((Math.random()*(length/3)+(length)/3))];
-            } else {
-                result += ' ' + ipsums[Math.floor(Math.random()*length/3)];
+        // if(this.state.size==='short') 
+            for(let i=1;i<=parseInt(this.state.size);i++) {
+                if (i%3===0) {
+                    result+=' '+ipsums[Math.floor((Math.random()*thirdLength)+(2*thirdLength))];
+                } else if (i%2===0) {
+                    result+=' '+ipsums[Math.floor((Math.random()*thirdLength)+thirdLength)];
+                } else {
+                    result += ' ' + ipsums[Math.floor(Math.random()*thirdLength)];
+                }
             }
-        }
-
         this.setState({
             activeLorem:result
         }) 
@@ -85,9 +85,9 @@ class App extends React.Component {
                 <form onSubmit={this.randomLorem}>
                     <label htmlFor='size'>Length of Lorem:</label>
                     <select value={this.state.size} onChange={this.handleChange} id='size'>
-                        <option value='Short'>Short</option>
-                        <option value='Medium'>Medium</option>
-                        <option value='Long'>Long</option>
+                        <option value='10'>Short</option>
+                        <option value='20'>Medium</option>
+                        <option value='30'>Long</option>
                     </select>
                     <input type='submit' value="D'oH" />
                 </form>
