@@ -3,7 +3,7 @@ class App extends React.Component {
         activeLorem: '',
         lorems: [],
         title: '',
-        data: ''        
+        length: ''        
     }
     
 
@@ -66,6 +66,12 @@ class App extends React.Component {
             <div>
                 <h1>Lorem Simpson</h1>
                 <form onSubmit={this.randomLorem}>
+                    <label htmlFor='length'>Length of Lorem</label>
+                    <select value={this.state.length} onChange={this.handleChange} id='length'>
+                        <option value='Short'>Short</option>
+                        <option value='Medium'>Medium</option>
+                        <option value='Long'>Long</option>
+                    </select>
                     <input type='submit' value="D'oH" />
                 </form>
                 <div> {this.state.activeLorem}</div>
