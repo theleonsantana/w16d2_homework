@@ -66,8 +66,11 @@ class App extends React.Component {
 				<h1 className="app-title drop-shadow">Lorem Simpson</h1>
 				<div className="app-container">
 					<form className="generate-form" onSubmit={this.randomLorem}>
-						<label htmlFor="size">Paragraph Length:</label>
+						<label className="form-label drop-shadow" htmlFor="size">
+							Paragraph Length:{' '}
+						</label>
 						<select
+							className="select-css"
 							value={this.state.size}
 							onChange={this.handleChange}
 							id="size"
@@ -76,16 +79,22 @@ class App extends React.Component {
 							<option value={20}>Medium</option>
 							<option value={30}>Long</option>
 						</select>
-						<label htmlFor="generate-lorem">
+
+						<label style={{ margin: 40 }} htmlFor="generate-lorem">
 							<img
 								className="generate-icon"
 								src="../images/kisspng-duff-beer-moe-szyslak-dr.png"
 							/>
 						</label>
 						<input id="generate-lorem" type="submit" value="D'oH" />
+						<span className="instructions">
+							***Click the Duff can to generate lorem Simpson
+						</span>
 					</form>
 					<form onSubmit={this.handleSubmit}>
-						<label label="title">Title</label>
+						<label className="form-label drop-shadow" label="title">
+							Title:{' '}
+						</label>
 						<input
 							type="text"
 							value={this.state.description}
