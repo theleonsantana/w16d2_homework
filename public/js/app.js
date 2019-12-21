@@ -45,38 +45,17 @@ class App extends React.Component {
         event.preventDefault()
         console.log(this.state.size)
         let result = 'Lorem Simpson';
-        let thirdLength = Math.floor(ipsums.length/3);
-        // let punctuation = ['.', '!', ',', '?', ' ', ';']
-        // let randomIpsum = ipsums[Math.floor(Math.random() * ipsums.length)]
-        // let randomPunctuation = punctuation[Math.floor((Math.random() * punctuation.length))];
-        // if(this.state.size === 'Short'){
-        //     for(let i = 0; i > (Math.floor((Math.random() * 8) + 1)); i++){
-        //         result += '' + randomIpsum;
-        //         console.log(result);
-        //     }
-        // }else if(this.state.size === 'Medium'){
-        //     for(let i = 0; i = (Math.floor((Math.random() * 20) + 9)); i++){
-        //         result += '' + ipsums[Math.floor(Math.random() * ipsums.length)] + randomPunctuation;
-        //     }
-        // }else {
-        //     for(let i = 0; i = (Math.floor((Math.random() * 40) + 15)); i++){
-        //         result += '' + ipsums[Math.floor(Math.random() * ipsums.length)] + randomPunctuation;
-        //     }
-        // }
-        // if(this.state.size==='short') 
-            for(let i=1;i<=this.state.size;i++) {
-                if (i%3===0) {
-                    result+=' '+ipsums[Math.floor((Math.random()*thirdLength)+(2*thirdLength))];
-                } else if (i%2===0) {
-                    result+=' '+ipsums[Math.floor((Math.random()*thirdLength)+thirdLength)];
-                } else {
-                    result += ' ' + ipsums[Math.floor(Math.random()*thirdLength)];
-                }
-            }
+        let thirdLength = Math.floor(ipsums.length);
+        let punctuation = ['.', '!', ',', '?', ' ', ';']
+        for(let i=1;i<=this.state.size;i++) {
+            let randomIpsum = ipsums[Math.floor(Math.random() * ipsums.length)];
+            let randomPunctuation = punctuation[Math.floor((Math.random() * punctuation.length))];
+            result += ' ' + randomIpsum + randomPunctuation;
+        };
         this.setState({
             activeLorem:result
-        }) 
-    }
+        });
+    };
 
     render() {
         return(
