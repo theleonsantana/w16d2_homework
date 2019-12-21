@@ -3,7 +3,7 @@ class App extends React.Component {
         activeLorem: '',
         lorems: [],
         title: '',
-        size: '10'        
+        size: 10        
     }
     
 
@@ -64,7 +64,7 @@ class App extends React.Component {
         //     }
         // }
         // if(this.state.size==='short') 
-            for(let i=1;i<=parseInt(this.state.size);i++) {
+            for(let i=1;i<=this.state.size;i++) {
                 if (i%3===0) {
                     result+=' '+ipsums[Math.floor((Math.random()*thirdLength)+(2*thirdLength))];
                 } else if (i%2===0) {
@@ -85,9 +85,9 @@ class App extends React.Component {
                 <form onSubmit={this.randomLorem}>
                     <label htmlFor='size'>Length of Lorem:</label>
                     <select value={this.state.size} onChange={this.handleChange} id='size'>
-                        <option value='10'>Short</option>
-                        <option value='20'>Medium</option>
-                        <option value='30'>Long</option>
+                        <option value={10}>Short</option>
+                        <option value={20}>Medium</option>
+                        <option value={30}>Long</option>
                     </select>
                     <input type='submit' value="D'oH" />
                 </form>
