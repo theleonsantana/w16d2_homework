@@ -3,7 +3,8 @@ class App extends React.Component {
         activeLorem: '',
         lorems: [],
         title: '',
-        size: 10        
+        size: 10,
+        readMode: false       
     }
     
 
@@ -57,28 +58,43 @@ class App extends React.Component {
         });
     };
 
+    viewLorem = (lorem, index) => {
+        this.setState({
+            readMode: !this.state.readMode,
+            previewLorem: lorem[index]
+        })
+    }
+
     render() {
         return(
             <div>
                 <h1>Lorem Simpson</h1>
-                <form onSubmit={this.randomLorem}>
-                    <label htmlFor='size'>Length of Lorem:</label>
-                    <select value={this.state.size} onChange={this.handleChange} id='size'>
-                        <option value={10}>Short</option>
-                        <option value={20}>Medium</option>
-                        <option value={30}>Long</option>
-                    </select>
-                    <input type='submit' value="D'oH" />
-                </form>
-                <div> {this.state.activeLorem}</div>
-                <form onSubmit={this.handleSubmit}>
-                    <label label='title'>Title</label>
-                    <input type='text' value={this.state.description} onChange={this.handleChange} id='title' />
-                    <input type='submit' value='Save Lorem' />
-                </form>
-                {/* <form>
-
-                </form> */}
+                <ul className='ipsumList'>
+                {this.state.lorems.map((lorem, index) => {
+                    return(<li onClick={() => this.viewLorem(lorem, index)}>{lorem.title}</li>)
+                    })}
+                </ul>
+                {this.state.readMode ? 
+                    <div className="readModeContainer">
+                        {this.state.activeLorem}
+                    </div> :
+                    <div className="createModeContainer">
+                    <form onSubmit={this.randomLorem}>
+                        <label htmlFor='size'>Length of Lorem:</label>
+                        <select value={this.state.size} onChange={this.handleChange} id='size'>
+                            <option value={10}>Short</option>
+                            <option value={20}>Medium</option>
+                            <option value={30}>Long</option>
+                        </select>
+                        <input type='submit' value="D'oH" />
+                    </form>
+                    <div> {this.state.activeLorem}</div>
+                    <form onSubmit={this.handleSubmit}>
+                        <label label='title'>Title</label>
+                        <input type='text' value={this.state.description} onChange={this.handleChange} id='title' />
+                        <input type='submit' value='Save Lorem' />
+                    </form>
+                    </div>}
             </div>
         )
     }
