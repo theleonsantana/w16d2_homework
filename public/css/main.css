@@ -43,3 +43,13 @@ body {
 .app-container {
 	background-color: rgba(60, 164, 253, 76%);
 }
+
+/* generate form styles */
+.generate-icon {
+	width: 50px;
+	height: auto;
+}
+
+.generate-form > input {
+	display: none;
+}

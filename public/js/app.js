@@ -1,3 +1,5 @@
+// const icon = require('../images/kisspng-duff-beer-moe-szyslak-dr.png');
+
 class App extends React.Component {
 	state = {
 		activeLorem: '',
@@ -63,7 +65,7 @@ class App extends React.Component {
 			<div>
 				<h1 className="app-title drop-shadow">Lorem Simpson</h1>
 				<div className="app-container">
-					<form onSubmit={this.randomLorem}>
+					<form className="generate-form" onSubmit={this.randomLorem}>
 						<label htmlFor="size">Paragraph Length:</label>
 						<select
 							value={this.state.size}
@@ -74,7 +76,13 @@ class App extends React.Component {
 							<option value={20}>Medium</option>
 							<option value={30}>Long</option>
 						</select>
-						<input type="submit" value="D'oH" />
+						<label htmlFor="generate-lorem">
+							<img
+								className="generate-icon"
+								src="../images/kisspng-duff-beer-moe-szyslak-dr.png"
+							/>
+						</label>
+						<input id="generate-lorem" type="submit" value="D'oH" />
 					</form>
 					<form onSubmit={this.handleSubmit}>
 						<label label="title">Title</label>
