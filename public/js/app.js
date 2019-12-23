@@ -7,7 +7,6 @@ class App extends React.Component {
 		title: '',
         size: 10,
 		readMode: false,
-		readLorem: '',
 		readLoremId: 0,
 		readLoremIndex: 0
 	};
@@ -47,14 +46,47 @@ class App extends React.Component {
 				});
 			})
 			.catch(error => console.log(error));
+
+			// if(this.state.readMode) {
+			// 	this.deleteLorem(this.state.readLoremId,this.state.readLoremIndex)
+			// }
 	};
-	deleteLorem = (lorem, index) => {
-		fetch('lorem/' + this.state.readLoremId, {
+
+	updateLorem = (event) => {
+		event.preventDefault();
+		fetch('/lorem', {
+			body: JSON.stringify({
+				title: this.state.title,
+			}),
+			method: 'POST',
+			headers: {
+				Accept: 'application/json, text/plain, */*',
+				'Content-Type': 'application/json',
+			},
+		})
+			.then(updatedLorem => {
+				return updatedLorem.json();
+			})
+			.then(updatedLorem => {
+				this.state.lorems[this.state.readLoremIndex].title=updatedLorem.title;
+				this.setState({
+					title: '',
+					data: ''
+			})
+		})
+			.catch(error => console.log(error));
+	}
+	
+	deleteLorem = (id, index) => {
+		fetch('lorem/' + id, {
 			method: 'DELETE'
 		}).then((data) => {
 			this.setState({
-				lorems: [ ...this.state.lorems.slice(0, this.state.readLoremIndex), ...this.state.lorems.slice(this.state.readLoremIndex + 1)],
-				readMode: !this.state.readMode
+				lorems: [ ...this.state.lorems.slice(0, this.state.readLoremIndex), 
+						  ...this.state.lorems.slice(this.state.readLoremIndex + 1)],
+				readMode: !this.state.readMode,
+				activeLorem: '',
+				title: ''
 			})
 		})
 	}
@@ -62,7 +94,6 @@ class App extends React.Component {
 		event.preventDefault();
 		console.log(this.state.size);
 		let result = 'Lorem Simpson';
-		let thirdLength = Math.floor(ipsums.length);
 		let punctuation = ['.', '!', ',', '?', ' ', ';'];
 		for (let i = 1; i <= this.state.size; i++) {
 			let randomIpsum = ipsums[Math.floor(Math.random() * ipsums.length)];
@@ -72,13 +103,15 @@ class App extends React.Component {
 		}
 		this.setState({
 			activeLorem: result,
+			readMode: false
 		});
     };
     
     viewLorem = (lorem, index) => {
         this.setState({
             readMode: !this.state.readMode,
-			readLorem: lorem.data,
+			activeLorem: lorem.data,
+			title: lorem.title,
 			readLoremId: lorem._id,
 			readLoremIndex: index
         })
@@ -94,12 +127,8 @@ class App extends React.Component {
                     return(<li onClick={() => this.viewLorem(lorem, index)}>{lorem.title}</li>)
                     })}
                 </ul>
+				<button onClick = {() => this.deleteLorem(event.target._id, event.target.index)}>Delete</button>
                 <div>
-                {this.state.readMode ? 
-                    <div>
-                        <p>{this.state.readLorem}</p>
-						<button onClick = {() => this.deleteLorem(event.target._id, event.target.index)}>Delete</button>
-                    </div> :
                     <div>
 					<form className="generate-form" onSubmit={this.randomLorem}>
 						<label className="form-label drop-shadow" htmlFor="size">
@@ -127,20 +156,20 @@ class App extends React.Component {
 							***Click the Duff can to generate lorem Simpson
 						</span>
 					</form>
-					<form onSubmit={this.handleSubmit}>
+					<form onSubmit={this.state.readMode ? this.updateLorem : this.handleSubmit}>
 						<label className="form-label drop-shadow" label="title">
 							Title:{' '}
 						</label>
 						<input
 							type="text"
-							value={this.state.description}
+							value={this.state.title}
 							onChange={this.handleChange}
 							id="title"
 						/>
 						<input type="submit" value="Save Lorem" />
 					</form>
 					<p className="output-text">{this.state.activeLorem}</p>
-                    </div>}
+                    </div>
                 </div>
 			</div>
             </div>
