@@ -6,7 +6,10 @@ class App extends React.Component {
 		lorems: [],
 		title: '',
         size: 10,
-        readMode: false
+		readMode: false,
+		readLorem: '',
+		readLoremId: 0,
+		readLoremIndex: 0
 	};
 	componentDidMount() {
 		fetch('/lorem')
@@ -45,6 +48,16 @@ class App extends React.Component {
 			})
 			.catch(error => console.log(error));
 	};
+	deleteLorem = (lorem, index) => {
+		fetch('lorem/' + this.state.readLoremId, {
+			method: 'DELETE'
+		}).then((data) => {
+			this.setState({
+				lorems: [ ...this.state.lorems.slice(0, this.state.readLoremIndex), ...this.state.lorems.slice(this.state.readLoremIndex + 1)],
+				readMode: !this.state.readMode
+			})
+		})
+	}
 	randomLorem = event => {
 		event.preventDefault();
 		console.log(this.state.size);
@@ -65,7 +78,9 @@ class App extends React.Component {
     viewLorem = (lorem, index) => {
         this.setState({
             readMode: !this.state.readMode,
-            activeLorem: lorem[index]
+			readLorem: lorem.data,
+			readLoremId: lorem._id,
+			readLoremIndex: index
         })
     }
 
@@ -82,7 +97,8 @@ class App extends React.Component {
                 <div>
                 {this.state.readMode ? 
                     <div>
-                        {this.state.activeLorem}
+                        <p>{this.state.readLorem}</p>
+						<button onClick = {() => this.deleteLorem(event.target._id, event.target.index)}>Delete</button>
                     </div> :
                     <div>
 					<form className="generate-form" onSubmit={this.randomLorem}>
