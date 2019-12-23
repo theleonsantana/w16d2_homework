@@ -7,9 +7,11 @@ class App extends React.Component {
 		title: '',
         size: 10,
 		readMode: false,
+		editMode: false,
 		readLorem: '',
 		readLoremId: 0,
-		readLoremIndex: 0
+		readLoremIndex: 0,
+
 	};
 	componentDidMount() {
 		fetch('/lorem')
@@ -21,8 +23,9 @@ class App extends React.Component {
 			);
 	}
 	handleChange = event => {
-		this.setState({ [event.target.id]: event.target.value });
+		this.setState({ updateTitle: event.target.value });
 	};
+
 	handleSubmit = event => {
 		event.preventDefault();
 		fetch('/lorem', {
@@ -58,6 +61,31 @@ class App extends React.Component {
 			})
 		})
 	}
+	editLorem = (lorem, index) => {
+		this.setState({
+			editMode: !this.state.editMode
+		})
+	}
+
+	// submitUpdateLorem = (event) => {
+	// 	event.preventDefault();
+	// 	this.state.readLoremTitle = this.state.updateTitle;
+	// 	fetch('lorem/' + this.state.readLoremId, {
+	// 		body: JSON.stringify(this.state.readLoremTitle),
+	// 		method: 'PUT',
+	// 		headers: {
+	// 			Accept: 'application/json, text/plain, */*', 'Content-Type': 'application/json'
+	// 		}
+	// 	})
+	// 	.then((updatedLorem) => updatedLorem.json())
+	// 	.then((jsonedLorem) => {
+	// 		fetch('/lorem').then((response) => response.json()).then((lorems) => {
+	// 			this.setState({ lorems: lorems,
+	// 			editMode: !this.state.editMode,
+	// 			updateTitle: ''})
+	// 		})
+	// 	})
+	// }
 	randomLorem = event => {
 		event.preventDefault();
 		console.log(this.state.size);
@@ -80,7 +108,8 @@ class App extends React.Component {
             readMode: !this.state.readMode,
 			readLorem: lorem.data,
 			readLoremId: lorem._id,
-			readLoremIndex: index
+			readLoremIndex: index,
+			readLoremTitle: lorem.title
         })
     }
 
@@ -99,6 +128,26 @@ class App extends React.Component {
                     <div>
                         <p>{this.state.readLorem}</p>
 						<button onClick = {() => this.deleteLorem(event.target._id, event.target.index)}>Delete</button>
+						<button onClick = {() => this.editLorem(event.target._id, event.target.index)}>Edit Title</button>
+						{this.state.editMode && ( 
+							<form 
+								onSubmit={(e) => {
+								e.preventDefault();
+								this.submitUpdateLorem(e)
+								}}
+							>
+								<h2>Update Title</h2>
+									<label htmlFor="title">Title:</label>
+									<input
+										type="text"
+											default={this.state.readLoremTitle}
+											value={this.state.updateTitle}
+											onChange={this.handleChange}
+											id="title"
+										/>
+								<input type="submit" />
+							</form>
+						)}
                     </div> :
                     <div>
 					<form className="generate-form" onSubmit={this.randomLorem}>
