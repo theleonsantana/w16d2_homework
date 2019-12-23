@@ -8,7 +8,8 @@ class App extends React.Component {
         size: 10,
 		readMode: false,
 		readLoremId: 0,
-		readLoremIndex: 0
+		readLoremIndex: 0,
+
 	};
 	componentDidMount() {
 		fetch('/lorem')
@@ -22,6 +23,7 @@ class App extends React.Component {
 	handleChange = event => {
 		this.setState({ [event.target.id]: event.target.value });
 	};
+
 	handleSubmit = event => {
 		event.preventDefault();
 		fetch('/lorem', {
@@ -78,7 +80,7 @@ class App extends React.Component {
 	}
 	
 	deleteLorem = (id, index) => {
-		fetch('lorem/' + id, {
+		fetch('lorem/' + this.state.readLoremId, {
 			method: 'DELETE'
 		}).then((data) => {
 			this.setState({
@@ -90,6 +92,31 @@ class App extends React.Component {
 			})
 		})
 	}
+	editLorem = (lorem, index) => {
+		this.setState({
+			editMode: !this.state.editMode
+		})
+	}
+
+	// submitUpdateLorem = (event) => {
+	// 	event.preventDefault();
+	// 	this.state.readLoremTitle = this.state.updateTitle;
+	// 	fetch('lorem/' + this.state.readLoremId, {
+	// 		body: JSON.stringify(this.state.readLoremTitle),
+	// 		method: 'PUT',
+	// 		headers: {
+	// 			Accept: 'application/json, text/plain, */*', 'Content-Type': 'application/json'
+	// 		}
+	// 	})
+	// 	.then((updatedLorem) => updatedLorem.json())
+	// 	.then((jsonedLorem) => {
+	// 		fetch('/lorem').then((response) => response.json()).then((lorems) => {
+	// 			this.setState({ lorems: lorems,
+	// 			editMode: !this.state.editMode,
+	// 			updateTitle: ''})
+	// 		})
+	// 	})
+	// }
 	randomLorem = event => {
 		event.preventDefault();
 		console.log(this.state.size);
@@ -113,7 +140,8 @@ class App extends React.Component {
 			activeLorem: lorem.data,
 			title: lorem.title,
 			readLoremId: lorem._id,
-			readLoremIndex: index
+			readLoremIndex: index,
+			readLoremTitle: lorem.title
         })
     }
 
