@@ -48,11 +48,10 @@ class App extends React.Component {
 				});
 			})
 			.catch(error => console.log(error));
-
-			// if(this.state.readMode) {
-			// 	this.deleteLorem(this.state.readLoremId,this.state.readLoremIndex)
-			// }
 	};
+
+	// Runs just like handleSubmit but only changes the name of an existing
+	// Lorem and resets the fields to empty strings
 
 	updateLorem = (event) => {
 		event.preventDefault();
@@ -92,37 +91,16 @@ class App extends React.Component {
 			})
 		})
 	}
-	editLorem = (lorem, index) => {
-		this.setState({
-			editMode: !this.state.editMode
-		})
-	}
 
-	// submitUpdateLorem = (event) => {
-	// 	event.preventDefault();
-	// 	this.state.readLoremTitle = this.state.updateTitle;
-	// 	fetch('lorem/' + this.state.readLoremId, {
-	// 		body: JSON.stringify(this.state.readLoremTitle),
-	// 		method: 'PUT',
-	// 		headers: {
-	// 			Accept: 'application/json, text/plain, */*', 'Content-Type': 'application/json'
-	// 		}
-	// 	})
-	// 	.then((updatedLorem) => updatedLorem.json())
-	// 	.then((jsonedLorem) => {
-	// 		fetch('/lorem').then((response) => response.json()).then((lorems) => {
-	// 			this.setState({ lorems: lorems,
-	// 			editMode: !this.state.editMode,
-	// 			updateTitle: ''})
-	// 		})
-	// 	})
-	// }
 	randomLorem = event => {
 		event.preventDefault();
-		console.log(this.state.size);
+		// Starting text for all lorems
 		let result = 'Lorem Simpson';
+		// punctuation that is randomly distributed at the end
+		// of each quote
 		let punctuation = ['.', '!', ',', '?', ' ', ';'];
 		for (let i = 1; i <= this.state.size; i++) {
+			// Random quote + random punctuation
 			let randomIpsum = ipsums[Math.floor(Math.random() * ipsums.length)];
 			let randomPunctuation =
 				punctuation[Math.floor(Math.random() * punctuation.length)];
@@ -133,7 +111,9 @@ class App extends React.Component {
 			readMode: false
 		});
     };
-    
+	
+	// View saved lorem as well as title which becomes editable upon viewing
+
     viewLorem = (lorem, index) => {
         this.setState({
             readMode: !this.state.readMode,
@@ -168,6 +148,8 @@ class App extends React.Component {
 							onChange={this.handleChange}
 							id="size"
 						>
+							{/* integer values are passed into randomLorem
+							for loop to create lorems of different sizes */}
 							<option value={10}>Short</option>
 							<option value={20}>Medium</option>
 							<option value={30}>Long</option>
@@ -184,6 +166,9 @@ class App extends React.Component {
 							***Click the Duff can to generate lorem Simpson
 						</span>
 					</form>
+					{/* Submit button either saves new random lorem or
+					edits title of existing lorem depending on whether we are
+					viewing a random or saved lorem */}
 					<form onSubmit={this.state.readMode ? this.updateLorem : this.handleSubmit}>
 						<label className="form-label drop-shadow" label="title">
 							Title:{' '}
