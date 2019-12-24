@@ -51,17 +51,24 @@ body {
 	border-radius: 40px;
 	padding: 30px 50px;
 	display: flex;
+	flex-direction: row;
 }
 
 .app-container div {
 	width: 50%;
+	margin: 1em;
 }
 
 .output-text {
 	color: white;
 	font-family: Montserrat, Arial, Helvetica, sans-serif;
-	font-size: 2.5em;
+	font-size: 1.6em;
+	line-height: 1.4em;
+	letter-spacing: 2px;
 	font-weight: 400;
+	display: block;
+	height: calc(100vh - 60vh);
+	overflow: auto;
 }
 
 .form-label {
@@ -134,7 +141,7 @@ button {
 	/* width: 20%;
 	max-width: 20%; */
 	box-sizing: border-box;
-	margin: 0;
+	margin: 0 10px;
 	border: 1px solid #aaa;
 	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 	border-radius: 0.5em;
@@ -142,6 +149,10 @@ button {
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: #fff;
+}
+
+.text-input {
+	cursor: text;
 }
 
 .select-css::-ms-expand {
@@ -161,4 +172,16 @@ button:hover {
 }
 .select-css option {
 	font-weight: normal;
+}
+
+@media only screen and (max-width: 1560px) {
+	.app-container {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+	}
+	.app-container div {
+		width: 100%;
+		margin: 1em;
+	}
 }

@@ -172,17 +172,21 @@ class App extends React.Component {
 								Title:{' '}
 							</label>
 							<input
-								className="input-style"
+								className="input-style text-input"
 								type="text"
 								value={this.state.title}
 								onChange={this.handleChange}
 								id="title"
 							/>
 							<input className="input-style" type="submit" value="Save Lorem" />
+							<p className="instructions">
+								***Saved the displayed lorem simpson to your library
+							</p>
 						</form>
 						<p className="output-text">{this.state.activeLorem}</p>
 					</div>
 					<div>
+						<h3 className="form-label drop-shadow">Saved Lorems Simpson</h3>
 						<ul className="ipsumList">
 							{this.state.lorems.map((lorem, index) => {
 								return (
