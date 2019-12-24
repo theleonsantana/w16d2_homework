@@ -8,6 +8,20 @@
 	--simpson-blue: #3ca4fd;
 }
 
+/* Scrollbar */
+body::-webkit-scrollbar {
+	width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: var(--simpson-yellow);
+	outline: 1px solid slategrey;
+}
+
 /* Fonts */
 @font-face {
 	font-family: 'SimpsonFont';
@@ -172,6 +186,23 @@ button:hover {
 }
 .select-css option {
 	font-weight: normal;
+}
+
+/* Ipsum List */
+.ipsumList li {
+	margin: 20px 0px;
+	cursor: pointer;
+	font-family: Montserrat, Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	font-size: 1.2em;
+	color: white;
+	text-transform: capitalize;
+}
+
+.ipsumList li:hover {
+	color: var(--simpson-yellow);
+	text-shadow: -4px 4px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
+		-1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 @media only screen and (max-width: 1560px) {
