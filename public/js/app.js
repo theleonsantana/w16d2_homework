@@ -54,11 +54,12 @@ class App extends React.Component {
 
 	updateLorem = event => {
 		event.preventDefault();
-		fetch('/lorem', {
+		fetch('/lorem/' + this.state.readLoremId, {
 			body: JSON.stringify({
 				title: this.state.title,
+				data: this.state.data,
 			}),
-			method: 'POST',
+			method: 'PUT',
 			headers: {
 				Accept: 'application/json, text/plain, */*',
 				'Content-Type': 'application/json',
@@ -69,6 +70,7 @@ class App extends React.Component {
 			})
 			.then(updatedLorem => {
 				this.state.lorems[this.state.readLoremIndex].title = updatedLorem.title;
+				this.state.lorems[this.state.readLoremIndex].data = updatedLorem.data;
 				this.setState({
 					title: '',
 					data: '',
