@@ -5,11 +5,10 @@ class App extends React.Component {
 		activeLorem: '',
 		lorems: [],
 		title: '',
-        size: 10,
+		size: 10,
 		readMode: false,
 		readLoremId: 0,
 		readLoremIndex: 0,
-
 	};
 	componentDidMount() {
 		fetch('/lorem')
@@ -53,7 +52,7 @@ class App extends React.Component {
 	// Runs just like handleSubmit but only changes the name of an existing
 	// Lorem and resets the fields to empty strings
 
-	updateLorem = (event) => {
+	updateLorem = event => {
 		event.preventDefault();
 		fetch('/lorem', {
 			body: JSON.stringify({
@@ -69,28 +68,30 @@ class App extends React.Component {
 				return updatedLorem.json();
 			})
 			.then(updatedLorem => {
-				this.state.lorems[this.state.readLoremIndex].title=updatedLorem.title;
+				this.state.lorems[this.state.readLoremIndex].title = updatedLorem.title;
 				this.setState({
 					title: '',
-					data: ''
+					data: '',
+				});
 			})
-		})
 			.catch(error => console.log(error));
-	}
-	
+	};
+
 	deleteLorem = (id, index) => {
 		fetch('lorem/' + this.state.readLoremId, {
-			method: 'DELETE'
-		}).then((data) => {
+			method: 'DELETE',
+		}).then(data => {
 			this.setState({
-				lorems: [ ...this.state.lorems.slice(0, this.state.readLoremIndex), 
-						  ...this.state.lorems.slice(this.state.readLoremIndex + 1)],
+				lorems: [
+					...this.state.lorems.slice(0, this.state.readLoremIndex),
+					...this.state.lorems.slice(this.state.readLoremIndex + 1),
+				],
 				readMode: !this.state.readMode,
 				activeLorem: '',
-				title: ''
-			})
-		})
-	}
+				title: '',
+			});
+		});
+	};
 
 	randomLorem = event => {
 		event.preventDefault();
@@ -108,84 +109,99 @@ class App extends React.Component {
 		}
 		this.setState({
 			activeLorem: result,
-			readMode: false
+			readMode: false,
 		});
-    };
-	
+	};
+
 	// View saved lorem as well as title which becomes editable upon viewing
 
-    viewLorem = (lorem, index) => {
-        this.setState({
-            readMode: !this.state.readMode,
+	viewLorem = (lorem, index) => {
+		this.setState({
+			readMode: !this.state.readMode,
 			activeLorem: lorem.data,
 			title: lorem.title,
 			readLoremId: lorem._id,
 			readLoremIndex: index,
-			readLoremTitle: lorem.title
-        })
-    }
+			readLoremTitle: lorem.title,
+		});
+	};
 
 	render() {
 		return (
 			<div>
 				<h1 className="app-title drop-shadow">Lorem Simpson</h1>
 				<div className="app-container">
-                <ul className='ipsumList'>
-                {this.state.lorems.map((lorem, index) => {
-                    return(<li onClick={() => this.viewLorem(lorem, index)}>{lorem.title}</li>)
-                    })}
-                </ul>
-				<button onClick = {() => this.deleteLorem(event.target._id, event.target.index)}>Delete</button>
-                <div>
-                    <div>
-					<form className="generate-form" onSubmit={this.randomLorem}>
-						<label className="form-label drop-shadow" htmlFor="size">
-							Paragraph Length:{' '}
-						</label>
-						<select
-							className="select-css"
-							value={this.state.size}
-							onChange={this.handleChange}
-							id="size"
-						>
-							{/* integer values are passed into randomLorem
+					<div>
+						<form className="generate-form" onSubmit={this.randomLorem}>
+							<label className="form-label drop-shadow" htmlFor="size">
+								Paragraph Length:{' '}
+							</label>
+							<select
+								className="select-css"
+								value={this.state.size}
+								onChange={this.handleChange}
+								id="size"
+							>
+								{/* integer values are passed into randomLorem
 							for loop to create lorems of different sizes */}
-							<option value={10}>Short</option>
-							<option value={20}>Medium</option>
-							<option value={30}>Long</option>
-						</select>
+								<option value={10}>Short</option>
+								<option value={20}>Medium</option>
+								<option value={30}>Long</option>
+							</select>
 
-						<label style={{ margin: 40 }} htmlFor="generate-lorem">
-							<img
-								className="generate-icon"
-								src="../images/kisspng-duff-beer-moe-szyslak-dr.png"
-							/>
-						</label>
-						<input id="generate-lorem" type="submit" value="D'oH" />
-						<span className="instructions">
-							***Click the Duff can to generate lorem Simpson
-						</span>
-					</form>
-					{/* Submit button either saves new random lorem or
+							<label style={{ margin: 40 }} htmlFor="generate-lorem">
+								<img
+									className="generate-icon"
+									src="../images/kisspng-duff-beer-moe-szyslak-dr.png"
+								/>
+							</label>
+							<input id="generate-lorem" type="submit" value="D'oH" />
+							<p className="instructions">
+								***Click the Duff can to generate lorem Simpson
+							</p>
+						</form>
+						{/* Submit button either saves new random lorem or
 					edits title of existing lorem depending on whether we are
 					viewing a random or saved lorem */}
-					<form onSubmit={this.state.readMode ? this.updateLorem : this.handleSubmit}>
-						<label className="form-label drop-shadow" label="title">
-							Title:{' '}
-						</label>
-						<input
-							type="text"
-							value={this.state.title}
-							onChange={this.handleChange}
-							id="title"
-						/>
-						<input type="submit" value="Save Lorem" />
-					</form>
-					<p className="output-text">{this.state.activeLorem}</p>
-                    </div>
-                </div>
+						<form
+							onSubmit={
+								this.state.readMode ? this.updateLorem : this.handleSubmit
+							}
+						>
+							<label className="form-label drop-shadow" label="title">
+								Title:{' '}
+							</label>
+							<input
+								className="input-style"
+								type="text"
+								value={this.state.title}
+								onChange={this.handleChange}
+								id="title"
+							/>
+							<input className="input-style" type="submit" value="Save Lorem" />
+						</form>
+						<p className="output-text">{this.state.activeLorem}</p>
+					</div>
+					<div>
+						<ul className="ipsumList">
+							{this.state.lorems.map((lorem, index) => {
+								return (
+									<li onClick={() => this.viewLorem(lorem, index)}>
+										{lorem.title}
+									</li>
+								);
+							})}
+						</ul>
+						<button
+							onClick={() =>
+								this.deleteLorem(event.target._id, event.target.index)
+							}
+						>
+							delete current Lorem Simpson
+						</button>
+					</div>
+				</div>
 			</div>
-            </div>
 		);
 	}
 }

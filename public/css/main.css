@@ -1,3 +1,7 @@
+* {
+	box-sizing: content-box;
+}
+
 /* Variables */
 :root {
 	--simpson-yellow: #ffd51f;
@@ -46,6 +50,11 @@ body {
 	height: 70vh;
 	border-radius: 40px;
 	padding: 30px 50px;
+	display: flex;
+}
+
+.app-container div {
+	width: 50%;
 }
 
 .output-text {
@@ -85,6 +94,7 @@ body {
 
 /* select dropdown styles */
 .select-css {
+	cursor: pointer;
 	display: inline-block;
 	font-size: 16px;
 	font-family: Montserrat, Arial, Helvetica, sans-serif;
@@ -108,10 +118,38 @@ body {
 	background-position: right 0.7em top 50%, 0 0;
 	background-size: 0.65em auto, 100%;
 }
+
+/* Button / input styles */
+.input-style,
+button {
+	cursor: pointer;
+	text-transform: capitalize;
+	display: inline-block;
+	font-size: 16px;
+	font-family: Montserrat, Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	color: #444;
+	line-height: 1.3;
+	padding: 0.6em 0.5em;
+	/* width: 20%;
+	max-width: 20%; */
+	box-sizing: border-box;
+	margin: 0;
+	border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+	border-radius: 0.5em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #fff;
+}
+
 .select-css::-ms-expand {
 	display: none;
 }
-.select-css:hover {
+.select-css:hover,
+.input-style:hover,
+button:hover {
 	border-color: #888;
 }
 .select-css:focus {
